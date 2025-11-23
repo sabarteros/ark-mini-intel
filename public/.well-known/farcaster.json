@@ -1,17 +1,6 @@
 {
   "name": "Ark-mini-intel",
-  "description": "Onchain Intel Mini App powered by Moralis Web3 API",
-  "author": "you",
-  "icons": [
-    {
-      "src": "/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    }
-  ],
-  "permissions": [
-    "read_profile",
-    "notifications"
-  ],
-  "url": "https://YOUR-VERCEL-DOMAIN"
+  "description": "Onchain Intel Mini App powered by Moralis",
+  "permissions": ["read_profile", "notifications"],
+  "url": "https://ark-mini-intel.vercel.app"
 }
