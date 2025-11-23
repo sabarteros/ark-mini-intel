@@ -3,20 +3,20 @@ import Link from "next/link";
 import MiniAppSDK from "@farcaster/miniapp-sdk";
 
 export default function Home() {
-  const [sdk, setSdk] = useState<MiniAppSDK | null>(null);
+  const [sdk, setSdk] = useState<any>(null);
   const [auth, setAuth] = useState<any>(null);
   const [query, setQuery] = useState("");
 
   useEffect(() => {
     const m = new MiniAppSDK();
-    m.ready(); // notify host (Warpcast) bahwa Mini App siap
+    m.ready();
     setSdk(m);
   }, []);
 
   async function signin() {
     if (!sdk) return alert("Not inside Farcaster client");
-    const user = await sdk.auth.getToken();
-    setAuth(user);
+    const token = await sdk.auth.getToken();
+    setAuth(token);
   }
 
   return (
@@ -29,7 +29,7 @@ export default function Home() {
 
       {auth && (
         <div>
-          <p>Signed in as FID {auth.fid}</p>
+          <p>FID: {auth.fid}</p>
           <p>Valid until: {auth.valid_until}</p>
         </div>
       )}
