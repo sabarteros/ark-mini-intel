@@ -1,45 +1,48 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { MiniApp } from "@farcaster/miniapp-sdk";
+import MiniAppSDK from "@farcaster/miniapp-sdk";
 
 export default function Home() {
-  const [sdk, setSdk] = useState(null);
-  const [profile, setProfile] = useState(null);
+  const [sdk, setSdk] = useState<MiniAppSDK | null>(null);
+  const [authUser, setAuthUser] = useState<any>(null);
   const [query, setQuery] = useState("");
 
   useEffect(() => {
-    if (typeof window !== "undefined" && MiniApp.isAvailable()) {
-      const s = new MiniApp();
-      s.ready();
-      setSdk(s);
-    }
+    const m = new MiniAppSDK();
+    m.ready();
+    setSdk(m);
   }, []);
 
   async function signin() {
-    if (!sdk) return alert("Not inside Farcaster");
-    const r = await sdk.signIn();
-    setProfile(r);
+    if (!sdk) return alert("Not inside Farcaster client");
+    const auth = await sdk.auth.getToken();
+    setAuthUser(auth);
   }
 
   return (
     <div style={{ padding: 20 }}>
-      <h1>Ark-mini-intel</h1>
+      <h1>Ark-mini-intel (Mini App)</h1>
 
-      {!profile && <button onClick={signin}>Sign in with Farcaster</button>}
+      {!authUser && (
+        <button onClick={signin}>Sign in with Farcaster</button>
+      )}
 
-      {profile && (
-        <p>Signed in as FID {profile.fid} ({profile.username})</p>
+      {authUser && (
+        <p>
+          Logged in as FID {authUser.fid} – token valid until{" "}
+          {authUser.valid_until}
+        </p>
       )}
 
       <input
-        style={{ width: 400, padding: 8 }}
+        style={{ width: 300, padding: 8 }}
         placeholder="Address / Tx / ENS"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
       />
 
       <Link href={`/address/eth/${query}`}>
-        <button style={{ marginLeft: 8 }}>Lookup</button>
+        <button style={{ marginLeft: 10 }}>Lookup</button>
       </Link>
     </div>
   );
