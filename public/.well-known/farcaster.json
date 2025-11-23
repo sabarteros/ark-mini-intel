@@ -1,6 +1,13 @@
 {
   "name": "Ark-mini-intel",
-  "description": "Onchain Intel Mini App powered by Moralis",
+  "description": "Onchain Intelligence powered by Moralis",
+  "url": "https://ark-mini-intel.vercel.app",
   "permissions": ["read_profile", "notifications"],
-  "url": "https://ark-mini-intel.vercel.app"
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
 }
